@@ -48,6 +48,13 @@ async function ruleOnly(page, goal) {
 }
 
 test.describe('型付きスキル提案', () => {
+  test('既定のタイムアウトは API 側の締め切り(10秒)より長い', async ({ page }) => {
+    await openBuilder(page);
+    const cfg = await page.evaluate(() => ({ ...window.SKILL_SUGGEST_CONFIG }));
+    expect(cfg.endpoint).toBe('');
+    expect(cfg.timeoutMs).toBeGreaterThan(10_000);
+  });
+
   test('endpoint 未設定なら API を呼ばずルール推薦', async ({ page }) => {
     await openBuilder(page);
     const requests = await mockApi(page, 200, {});

@@ -4834,7 +4834,8 @@ const REC_RULES = [
    - MCP の推薦は従来どおり REC_RULES で行う
 ---------------------------------------------------------------- */
 window.SKILL_SUGGEST_CONFIG = Object.assign(
-  { endpoint: '', timeoutMs: 8000 },
+  // timeoutMs は API 側の処理締め切り (SKILL_SUGGEST_BUDGET_SEC, 既定10秒) より長くする
+  { endpoint: '', timeoutMs: 12000 },
   window.SKILL_SUGGEST_CONFIG || {}
 );
 
@@ -4866,7 +4867,7 @@ async function fetchTypedSkillSuggestion(goal) {
   const cfg = window.SKILL_SUGGEST_CONFIG || {};
   if (!cfg.endpoint) return null;
   const ctrl  = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), cfg.timeoutMs || 8000);
+  const timer = setTimeout(() => ctrl.abort(), cfg.timeoutMs || 12000);
   try {
     const res = await fetch(cfg.endpoint, {
       method: 'POST',

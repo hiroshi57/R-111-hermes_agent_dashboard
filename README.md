@@ -76,7 +76,7 @@ Profile Builder の「AIが推薦する」は、既定では目的文のキー�
 // index.html 内、または読み込み前に window.SKILL_SUGGEST_CONFIG を定義して上書き
 window.SKILL_SUGGEST_CONFIG = {
   endpoint: 'https://<API をデプロイした URL>/api/skill_suggest',  // 空なら API を呼ばない
-  timeoutMs: 8000,
+  timeoutMs: 12000,   // API 側の締め切り(既定10秒)より長くする
 };
 ```
 
